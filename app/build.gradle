@@ -22,4 +22,9 @@ android {
 dependencies {
   compile 'com.android.support:appcompat-v7:25.3.1'
   testCompile 'junit:junit:4.12'
+
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+    // To avoid version conflict with the support-annotations included by appcompat in line 23.
+    exclude group : 'com.android.support', module: 'support-annotations'
+  }
 }
