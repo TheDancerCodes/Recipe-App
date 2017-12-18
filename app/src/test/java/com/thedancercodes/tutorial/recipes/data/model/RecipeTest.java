@@ -20,6 +20,11 @@ public class RecipeTest {
 
         // Assert that the recipe returned is not null.
         assertNotNull(recipe);
+
+        // Assert that the id is what we are expecting [water]
+        assertEquals("water", recipe.id);
+        assertEquals("Water", recipe.title);
+        assertEquals("Put glass under tap. Open tap. Close tap. Drink.", recipe.description);
     }
 
 }
