@@ -32,7 +32,12 @@ public class Recipe {
      *   3) Assign them into fields: id, title and description
      *   4) Create a Recipe with the private constructor
       */
-    public Recipe readFromStream(InputStream stream) {
-        return null;
+    public static Recipe readFromStream(InputStream stream) {
+        // Initialize local variables
+        String id = null;
+        String title = null;
+        StringBuilder descStringBuilder = new StringBuilder();
+
+        return new Recipe(id, title, descStringBuilder.toString());
     }
 }
