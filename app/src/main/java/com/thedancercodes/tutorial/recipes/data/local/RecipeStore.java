@@ -9,7 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by TheDancerCodes on 18/12/2017.
@@ -18,6 +20,9 @@ import java.util.List;
 public class RecipeStore {
     // Recipes member variable
     public final List<Recipe> recipes = new ArrayList<>();
+
+    // A Lookup table
+    private final Map<String, Recipe> map = new HashMap<>();
 
     public RecipeStore(Context context, String directory) {
 
@@ -31,6 +36,9 @@ public class RecipeStore {
             // Add to list of recipes if not null
             if (recipe != null) {
                 recipes.add(recipe);
+
+                // Populating our lookup table/ Hashmap
+                map.put(recipe.id, recipe);
             }
         }
     }
@@ -78,5 +86,9 @@ public class RecipeStore {
         } catch (IOException e) {
             return new String[0];
         }
+    }
+
+    public Recipe getRecipe(String id) {
+        return map.get(id);
     }
 }
