@@ -7,11 +7,15 @@
     android:label="@string/app_name"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name="com.thedancercodes.tutorial.recipes.ui.main.MainActivity">
+    <activity android:name=".ui.main.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+    </activity>
+
+    <activity android:name=".ui.recipe.RecipeActivity"
+        android:parentActivityName=".ui.main.MainActivity">
     </activity>
   </application>
 </manifest>
