@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.thedancercodes.tutorial.recipes.R;
 import com.thedancercodes.tutorial.recipes.data.local.RecipeStore;
+import com.thedancercodes.tutorial.recipes.data.local.SharedPreferencesFavorites;
 import com.thedancercodes.tutorial.recipes.data.model.Recipe;
 
 /**
@@ -47,8 +48,16 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
+        // Hooking up SharedPreferencesFavorites to the UI
+        SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
+
+        // Receive from this favorites the value of our particular recipe
+        boolean favorite = favorites.get(recipe.id);
+
+
         // Set title and description
         titleView.setText(recipe.title);
+        titleView.setSelected(favorite);
         descriptionView.setText(recipe.description);
     }
 }
