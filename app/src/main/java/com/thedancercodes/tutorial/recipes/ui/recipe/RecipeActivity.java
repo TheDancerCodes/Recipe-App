@@ -26,7 +26,7 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         // Find the views to display the title and the description.
-        TextView titleView = (TextView) findViewById(R.id.title);
+        final TextView titleView = (TextView) findViewById(R.id.title);
         TextView descriptionView = (TextView) findViewById(R.id.description);
 
          // GOAL: Retrieve the recipe from the store
@@ -38,7 +38,7 @@ public class RecipeActivity extends AppCompatActivity {
         String id = getIntent().getStringExtra(KEY_ID);
 
         // Retrieve recipe out of the store
-        Recipe recipe = store.getRecipe(id);
+        final Recipe recipe = store.getRecipe(id);
 
         // When we give it an invalid ID, the recipe will be null &
         // we need to make sure that we handle it properly.
@@ -49,7 +49,7 @@ public class RecipeActivity extends AppCompatActivity {
         }
 
         // Hooking up SharedPreferencesFavorites to the UI
-        SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
+        final SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
 
         // Receive from this favorites the value of our particular recipe
         boolean favorite = favorites.get(recipe.id);
@@ -58,6 +58,18 @@ public class RecipeActivity extends AppCompatActivity {
         // Set title and description
         titleView.setText(recipe.title);
         titleView.setSelected(favorite);
+
+        // Set OnClickListener to toggle the favorite/ not favorite status
+        titleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean result = favorites.toggle(recipe.id);
+
+                // Update the UI
+                titleView.setSelected(result);
+            }
+        });
+
         descriptionView.setText(recipe.description);
     }
 }
