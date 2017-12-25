@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--When the first condition isn't met, the hollow drawable is shown-->
+    <item android:drawable="@drawable/ic_favorite_solid" android:state_selected="true"/>
+    <item android:drawable="@drawable/ic_favorite_hollow"/>
+
+</selector>
