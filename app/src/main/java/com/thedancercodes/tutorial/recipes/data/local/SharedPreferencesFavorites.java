@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by TheDancerCodes on 25/12/2017.
  */
 
-public class SharedPreferencesFavorites {
+public class SharedPreferencesFavorites implements Favorites{
     private final SharedPreferences pref;
 
     public SharedPreferencesFavorites(Context context) {
