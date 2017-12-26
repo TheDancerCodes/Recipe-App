@@ -12,6 +12,8 @@ import com.thedancercodes.tutorial.recipes.data.local.SharedPreferencesFavorites
 public class RecipeApplication extends Application {
     private Favorites favorites = null;
 
+    // This function will return a latently-initialised SharedPreferencesFavorites
+    // NB: This way it is only going to be initialised when someone uses it.
     public Favorites getFavorites() {
         // Initialize favorites variable if null
         if (favorites == null) {
