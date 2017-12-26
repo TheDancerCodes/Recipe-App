@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.thedancercodes.tutorial.recipes.R;
+import com.thedancercodes.tutorial.recipes.data.local.Favorites;
 import com.thedancercodes.tutorial.recipes.data.local.RecipeStore;
 import com.thedancercodes.tutorial.recipes.data.local.SharedPreferencesFavorites;
 import com.thedancercodes.tutorial.recipes.data.model.Recipe;
+import com.thedancercodes.tutorial.recipes.injection.RecipeApplication;
 
 /**
  * Created by TheDancerCodes on 21/12/2017.
@@ -48,8 +50,11 @@ public class RecipeActivity extends AppCompatActivity {
             return;
         }
 
+        // Retrieve the Application
+        RecipeApplication app = (RecipeApplication) getApplication();
+
         // Hooking up SharedPreferencesFavorites to the UI
-        final SharedPreferencesFavorites favorites = new SharedPreferencesFavorites(this);
+        final Favorites favorites = app.getFavorites();
 
         // Receive from this favorites the value of our particular recipe
         boolean favorite = favorites.get(recipe.id);
