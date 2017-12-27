@@ -27,6 +27,7 @@ import static org.junit.Assert.*;
  */
 public class RecipeActivityTest {
 
+    private static final String CARROTS_ID = "creamed_carrots";
     @Rule
     public ActivityTestRule<RecipeActivity> activityRule
             = new ActivityTestRule<>(RecipeActivity.class, true, false);
@@ -59,12 +60,11 @@ public class RecipeActivityTest {
                 .check(matches(not(isDisplayed())));
     }
 
+    // A test method to verify that when we click on the title, it will save it as favorite.
     @Test
     public void clickToFavorite() {
-        // To load a valid recipe, pass an intent to the ActivityRule
-        Intent intent = new Intent();
-        intent.putExtra(RecipeActivity.KEY_ID, "creamed_carrots");
-        activityRule.launchActivity(intent);
+
+        launchRecipe(CARROTS_ID);
 
         // Verify that title view starts off with not selected, and
         // changes to selected when you click on it.
@@ -73,6 +73,25 @@ public class RecipeActivityTest {
                 .check(matches(not(isSelected())))
                 .perform(click())
                 .check(matches(isSelected()));
+    }
+
+    // A test method for the case where a recipe is already a favorite.
+    @Test
+    public void alreadyFavorite() {
+
+        favorites.put(CARROTS_ID, true);
+
+        launchRecipe(CARROTS_ID);
+
+        onView(withId(R.id.title))
+                .check(matches(isSelected()));
+    }
+
+    private void launchRecipe(String id) {
+        // To load a valid recipe, pass an intent to the ActivityRule
+        Intent intent = new Intent();
+        intent.putExtra(RecipeActivity.KEY_ID, id);
+        activityRule.launchActivity(intent);
     }
 
 }
