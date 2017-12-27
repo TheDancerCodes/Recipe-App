@@ -1,10 +1,14 @@
 package com.thedancercodes.tutorial.recipes.ui.recipe;
 
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 
 import com.thedancercodes.tutorial.recipes.R;
+import com.thedancercodes.tutorial.recipes.data.local.InMemoryFavorites;
+import com.thedancercodes.tutorial.recipes.injection.TestRecipeApplication;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -26,6 +30,20 @@ public class RecipeActivityTest {
     @Rule
     public ActivityTestRule<RecipeActivity> activityRule
             = new ActivityTestRule<>(RecipeActivity.class, true, false);
+
+    private InMemoryFavorites favorites;
+
+    @Before
+    public void clearFavorites() {
+        TestRecipeApplication app = (TestRecipeApplication)
+                InstrumentationRegistry.getTargetContext().getApplicationContext();
+
+        // Initialize favorites
+        favorites = (InMemoryFavorites) app.getFavorites();
+
+        favorites.clear();
+    }
+
 
     @Test
     public void recipeNotFound() {
