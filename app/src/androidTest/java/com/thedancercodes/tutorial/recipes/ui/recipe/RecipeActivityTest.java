@@ -7,6 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.thedancercodes.tutorial.recipes.R;
 import com.thedancercodes.tutorial.recipes.data.local.InMemoryFavorites;
 import com.thedancercodes.tutorial.recipes.injection.TestRecipeApplication;
+import com.thedancercodes.tutorial.recipes.test.RecipeRobot;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -49,15 +50,10 @@ public class RecipeActivityTest {
     @Test
     public void recipeNotFound() {
         // Launch an activity without an intent
-        activityRule.launchActivity(null);
-
-        // Check that it shows 'recipe not found'
-        onView(withId(R.id.description))
-                .check(matches(withText(R.string.recipe_not_found)));
-
-        // Check that that the title is not displayed
-        onView(withId(R.id.title))
-                .check(matches(not(isDisplayed())));
+        new RecipeRobot()
+                .launch(activityRule)
+                .noTitle()  // Check that that the title is not displayed
+                .description(R.string.recipe_not_found);  // Check that it shows 'recipe not found'
     }
 
     // A test method to verify that when we click on the title, it will save it as favorite.
