@@ -33,20 +33,6 @@ public class RecipeActivityTest {
     public ActivityTestRule<RecipeActivity> activityRule
             = new ActivityTestRule<>(RecipeActivity.class, true, false);
 
-    private InMemoryFavorites favorites;
-
-    @Before
-    public void clearFavorites() {
-        TestRecipeApplication app = (TestRecipeApplication)
-                InstrumentationRegistry.getTargetContext().getApplicationContext();
-
-        // Initialize favorites
-        favorites = (InMemoryFavorites) app.getFavorites();
-
-        favorites.clear();
-    }
-
-
     @Test
     public void recipeNotFound() {
         // Launch an activity without an intent
@@ -75,9 +61,11 @@ public class RecipeActivityTest {
     @Test
     public void alreadyFavorite() {
 
-        favorites.put(CARROTS_ID, true);
-
-        launchRecipe(CARROTS_ID);
+        // Using the setFavorite function from the robot
+        new RecipeRobot()
+                .setFavorite(CARROTS_ID)
+                .launch(activityRule, CARROTS_ID)
+                .isFavorite();
 
         onView(withId(R.id.title))
                 .check(matches(isSelected()));
