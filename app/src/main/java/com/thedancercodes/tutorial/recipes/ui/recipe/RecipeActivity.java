@@ -43,27 +43,21 @@ public class RecipeActivity extends AppCompatActivity implements RecipeContract.
         // Retrieve from the store the ID that got passed in; Get the ID out of the intent
         String id = getIntent().getStringExtra(KEY_ID);
 
-        // Retrieve recipe out of the store
-        RecipePresenter presenter = new RecipePresenter(store, this);
-        presenter.loadRecipe(id);
-
-        // TODO: (Step 3) If recipe is null, show error. This is done in the Presenter. [DONE!]
-
-        // TODO: (Step 4) If Recipe is not null, show recipe
         // Retrieve the Application
         RecipeApplication app = (RecipeApplication) getApplication();
 
         // Hooking up SharedPreferencesFavorites to the UI
         final Favorites favorites = app.getFavorites();
 
-        // Receive from this favorites the value of our particular recipe
-        boolean favorite = favorites.get(recipe.id);
+        // Retrieve recipe out of the store
+        RecipePresenter presenter = new RecipePresenter(store, this, favorites);
+        presenter.loadRecipe(id);
+
+        // TODO: (Step 3) If recipe is null, show error. This is done in the Presenter. [DONE!]
+
+        // TODO: (Step 4) If Recipe is not null, show recipe . This is done in the Presenter.[DONE!]
 
 
-        // Set title and description
-        titleView.setText(recipe.title);
-        titleView.setSelected(favorite);
-        descriptionView.setText(recipe.description);
 
         // TODO: (Step 5) when title is clicked, toggle favorites
         // Set OnClickListener to toggle the favorite/ not favorite status
@@ -83,5 +77,20 @@ public class RecipeActivity extends AppCompatActivity implements RecipeContract.
     public void showRecipeNotFoundError() {
         titleView.setVisibility(View.GONE);
         descriptionView.setText(R.string.recipe_not_found);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        titleView.setText(title);
+    }
+
+    @Override
+    public void setDescription(String description) {
+        descriptionView.setText(description);
+    }
+
+    @Override
+    public void setFavorite(boolean favorite) {
+        titleView.setSelected(favorite);
     }
 }
