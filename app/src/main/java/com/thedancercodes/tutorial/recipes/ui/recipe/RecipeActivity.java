@@ -17,10 +17,12 @@ import com.thedancercodes.tutorial.recipes.injection.RecipeApplication;
  * Created by TheDancerCodes on 21/12/2017.
  */
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements RecipeContract.View {
 
     // Constant used to extract the value of the ID out of the intent in RecipeAdapter
     public static final String KEY_ID = "id";
+    private TextView titleView;
+    private TextView descriptionView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,11 +31,11 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         // Find the views to display the title and the description.
-        final TextView titleView = (TextView) findViewById(R.id.title);
-        TextView descriptionView = (TextView) findViewById(R.id.description);
+        titleView = (TextView) findViewById(R.id.title);
+        descriptionView = (TextView) findViewById(R.id.description);
 
-        // TODO: (Step 2) Load recipe from store
-         // GOAL: Retrieve the recipe from the store
+        // TODO: (Step 2) Load recipe from store [DONE!]
+        // GOAL: Retrieve the recipe from the store
 
         // Create a recipe store
         RecipeStore store = new RecipeStore(this, "recipes");
@@ -42,17 +44,10 @@ public class RecipeActivity extends AppCompatActivity {
         String id = getIntent().getStringExtra(KEY_ID);
 
         // Retrieve recipe out of the store
-        RecipePresenter presenter = new RecipePresenter(store);
+        RecipePresenter presenter = new RecipePresenter(store, this);
         presenter.loadRecipe(id);
 
-        // TODO: (Step 3) If recipe is null, show error
-        // When we give it an invalid ID, the recipe will be null &
-        // we need to make sure that we handle it properly.
-        if (recipe == null) {
-            titleView.setVisibility(View.GONE);
-            descriptionView.setText(R.string.recipe_not_found);
-            return;
-        }
+        // TODO: (Step 3) If recipe is null, show error. This is done in the Presenter. [DONE!]
 
         // TODO: (Step 4) If Recipe is not null, show recipe
         // Retrieve the Application
@@ -82,5 +77,11 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void showRecipeNotFoundError() {
+        titleView.setVisibility(View.GONE);
+        descriptionView.setText(R.string.recipe_not_found);
     }
 }

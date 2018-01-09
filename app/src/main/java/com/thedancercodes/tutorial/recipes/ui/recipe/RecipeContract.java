@@ -8,6 +8,7 @@ public interface RecipeContract {
 
     // View contract allows the Presenter to talk to the View
     interface View {
+        void showRecipeNotFoundError();
 
     }
 
