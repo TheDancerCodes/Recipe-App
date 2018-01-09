@@ -11,7 +11,7 @@ import com.thedancercodes.tutorial.recipes.data.model.Recipe;
  * Created by TheDancerCodes on 09/01/2018.
  */
 
-public class RecipePresenter {
+public class RecipePresenter implements RecipeContract.Listener {
     private final RecipeStore store;
     private final RecipeContract.View view;
     private final Favorites favorites;
@@ -37,5 +37,12 @@ public class RecipePresenter {
             view.setDescription(recipe.description);
             view.setFavorite(favorites.get(recipe.id)); // Get from favorites the value of a recipe
         }
+    }
+
+    public void toggleFavorite() {
+        boolean result = favorites.toggle(recipe.id);
+
+        // Update the UI by setting the state as favorite or not
+        view.setFavorite(result);
     }
 }

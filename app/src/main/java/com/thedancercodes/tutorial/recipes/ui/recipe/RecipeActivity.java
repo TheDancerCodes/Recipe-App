@@ -50,24 +50,19 @@ public class RecipeActivity extends AppCompatActivity implements RecipeContract.
         final Favorites favorites = app.getFavorites();
 
         // Retrieve recipe out of the store
-        RecipePresenter presenter = new RecipePresenter(store, this, favorites);
+        final RecipePresenter presenter = new RecipePresenter(store, this, favorites);
         presenter.loadRecipe(id);
 
         // TODO: (Step 3) If recipe is null, show error. This is done in the Presenter. [DONE!]
 
         // TODO: (Step 4) If Recipe is not null, show recipe . This is done in the Presenter.[DONE!]
 
-
-
         // TODO: (Step 5) when title is clicked, toggle favorites
         // Set OnClickListener to toggle the favorite/ not favorite status
         titleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean result = favorites.toggle(recipe.id);
-
-                // Update the UI
-                titleView.setSelected(result);
+                presenter.toggleFavorite();
             }
         });
 
