@@ -40,6 +40,13 @@ public class RecipePresenter implements RecipeContract.Listener {
     }
 
     public void toggleFavorite() {
+
+        // When we give it an invalid ID, the recipe will be null &
+        // we need to make sure that we handle it properly.
+        if (recipe == null) {
+            throw new IllegalStateException();
+        }
+
         boolean result = favorites.toggle(recipe.id);
 
         // Update the UI by setting the state as favorite or not

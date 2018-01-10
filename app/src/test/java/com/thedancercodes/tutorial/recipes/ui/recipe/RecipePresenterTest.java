@@ -44,4 +44,10 @@ public class RecipePresenterTest {
         // ASSERT -> Verify that the showRecipeNotFound() error function is called.
         Mockito.verify(view, Mockito.times(1)).showRecipeNotFoundError();
     }
+
+    // Test the toggleFavorite() function without loading a recipe first.
+    @Test(expected = IllegalStateException.class)
+    public void toggleWithoutLoad() {
+        presenter.toggleFavorite();
+    }
 }
